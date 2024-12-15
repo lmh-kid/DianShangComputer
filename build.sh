@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 # 进入指定目录
-cd /root/code/douyu-barrage-analysis-web
+cd ~/release/DianShangComputer
 
 # 更新代码
 git fetch --all && git reset --hard origin/main
@@ -12,8 +12,8 @@ git fetch --all && git reset --hard origin/main
 
 # 构建 Docker 镜像
 tag=$(date "+%Y%m%d%H%M")
-docker build -f Dockerfile -t douyu-web:$tag .
+docker build -f Dockerfile -t ds-computer:$tag .
 
 # 删除旧容器并启动新容器
-docker stop douyu-web && sudo docker rm douyu-web
-docker run -p 80:80 -d --name douyu-web douyu-web:$tag
+docker stop ds-computer && sudo docker rm ds-computer
+docker run -p 86:86 -d --name ds-computer ds-computer:$tag

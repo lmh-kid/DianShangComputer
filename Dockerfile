@@ -8,6 +8,6 @@ COPY dist/ /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 暴露Nginx的默认端口（80端口）
-EXPOSE 80
+EXPOSE 86
 # 启动Nginx服务
 CMD ["nginx", "-g", "daemon off;"]

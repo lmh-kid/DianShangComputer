@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Button,
-  Form,
-  InputNumber,
-  Select,
-} from '@arco-design/web-react';
+import { Button, Form, InputNumber, Select } from '@arco-design/web-react';
 // import ReactECharts from 'echarts-for-react';
 import { getROI } from '@/api/douyu';
 
@@ -46,12 +41,7 @@ function Home() {
             rules={[{ required: true, message: '请输入产品定价' }]}
             label="产品定价"
           >
-            <InputNumber
-              className="w200"
-              step={1}
-              min={0}
-              mode="button"
-            />
+            <InputNumber className="w200" step={1} min={0} mode="button" />
           </Form.Item>
           <Form.Item label="品牌折扣" required>
             <Form.Item
@@ -89,12 +79,7 @@ function Home() {
             field="costStr"
             label="商品成本"
           >
-            <InputNumber
-              className="w200"
-              step={1}
-              min={0}
-              mode="button"
-            />
+            <InputNumber className="w200" step={1} min={0} mode="button" />
           </Form.Item>
           {/* 额外费用 */}
           <Form.Item
@@ -103,12 +88,7 @@ function Home() {
             label="额外费用"
             extra={'单件商品额外的费用，如包装费等'}
           >
-            <InputNumber
-              className="w200"
-              step={1}
-              min={0}
-              mode="button"
-            />
+            <InputNumber className="w200" step={1} min={0} mode="button" />
           </Form.Item>
           {/* 请求数据 */}
           <Form.Item label=" ">
@@ -128,6 +108,18 @@ function Home() {
             </Button>
           </Form.Item>
         </Form>
+
+        <div className="result">
+          <Form>
+            {/* 产品定价 */}
+            <Form.Item label="保本成交价">
+              <span className="mb0">{result?.data?.breakEvenBid}</span>
+            </Form.Item>
+            <Form.Item label="预估ROI">
+              <span className="mb0">{result?.data?.breakEvenROI}</span>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
     </div>
   );
