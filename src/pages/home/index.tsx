@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { Button, Form, InputNumber, Select } from '@arco-design/web-react';
-// import ReactECharts from 'echarts-for-react';
 import { getROI } from '@/api/douyu';
-
-// const RadioGroup = Radio.Group;
 
 function Home() {
   const [form] = Form.useForm();
   const [result, setResult] = React.useState<any>([]);
   const [formData, setFormData] = React.useState<any>({
-    brandDeductionType: 1,
+    brandDeductionType: '1',
     brandDeductionStr: 8,
+    returnRateStr: 30,
+    expenseStr: 10,
   });
   const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -41,9 +40,9 @@ function Home() {
             rules={[{ required: true, message: '请输入产品定价' }]}
             label="产品定价"
           >
-            <InputNumber className="w200" step={1} min={0} mode="button" />
+            <InputNumber className="w200" step={1} min={0} />
           </Form.Item>
-          <Form.Item label="品牌折扣" required>
+          <Form.Item label="品牌扣点" required>
             <Form.Item
               field="brandDeductionStr"
               rules={[{ required: true, message: '请输入品牌折扣' }]}
@@ -54,7 +53,6 @@ function Home() {
                 step={1}
                 min={0}
                 max={formData.brandDeductionType === 1 ? 100 : undefined}
-                mode="button"
               />
             </Form.Item>
             <Form.Item field="brandDeductionType" noStyle>
@@ -63,11 +61,11 @@ function Home() {
                 options={[
                   {
                     label: '百分比（%）',
-                    value: 1,
+                    value: '1',
                   },
                   {
                     label: '固定金额（元）',
-                    value: 2,
+                    value: '2',
                   },
                 ]}
               />
@@ -79,7 +77,15 @@ function Home() {
             field="costStr"
             label="商品成本"
           >
-            <InputNumber className="w200" step={1} min={0} mode="button" />
+            <InputNumber className="w200" step={1} min={0} />
+          </Form.Item>
+          {/* 预估退货率 */}
+          <Form.Item
+            rules={[{ required: true, message: '请输入预估退货率' }]}
+            field="returnRateStr"
+            label="预估退货率（%）"
+          >
+            <InputNumber className="w200" step={1} min={0} />
           </Form.Item>
           {/* 额外费用 */}
           <Form.Item
@@ -88,7 +94,7 @@ function Home() {
             label="额外费用"
             extra={'单件商品额外的费用，如包装费等'}
           >
-            <InputNumber className="w200" step={1} min={0} mode="button" />
+            <InputNumber className="w200" step={1} min={0} />
           </Form.Item>
           {/* 请求数据 */}
           <Form.Item label=" ">
@@ -113,10 +119,10 @@ function Home() {
           <Form>
             {/* 产品定价 */}
             <Form.Item label="保本成交价">
-              <span className="mb0">{result?.data?.breakEvenBid}</span>
+              <span className="mb0">{Number(parseFloat(result?.data?.breakEvenBid).toFixed(2)) || '-'}</span>
             </Form.Item>
             <Form.Item label="预估ROI">
-              <span className="mb0">{result?.data?.breakEvenROI}</span>
+              <span className="mb0">{Number(parseFloat(result?.data?.breakEvenROI).toFixed(2)) || '-'}</span>
             </Form.Item>
           </Form>
         </div>
